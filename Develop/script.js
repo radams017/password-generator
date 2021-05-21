@@ -15,14 +15,23 @@ function generatePassword(length, useUpper, useLower, useNum, useChar) {
     }
     return result;
   };
-  // if statements for using upper/lower/etc
-  // charPool += upperChar --> if selected Yes
-  // run rand at the end using charPool at the end
+  // verifies what password parameters should be used
+  if (useUpper){
+    charPool += upperChar;
+  }
+  else if (useLower){
+    charPool += lowerChar;
+  }
+  else if (useNum){
+    charPool += numbers;
+  }
+  else if (useChar){
+    charPool += specialChar;
+  };
   return generate(length, charPool);
-
 }
 
-// maybe separate input and validation into separate functions
+// determines password length based on prompt input
 function getPassLength () {
   var passLen = prompt('Choose a Password Length Between 8 and 128');
     if (passLen === null) {
@@ -39,24 +48,17 @@ function getPassLength () {
     return passLen;
   }
 
-// multiple 'get' functions to get the case and characters -- write below
-
-
+// multiple 'get' functions to get the case and characters -- write below in the writePassword function
 
 // Write password to the #password input
 function writePassword() {
   var passLen = getPassLength ();
-
   var password = generatePassword(passLen);
-  var 
-
-
   var passwordText = document.querySelector("#password");
   passwordText.value = password;
 }
 
 // Add event listener to generate button
 var generateBtn = document.querySelector("#generate");
-generateBtn.addEventListener("click", writePassword);
 
-writePassword();
+generateBtn.addEventListener("click", writePassword);
