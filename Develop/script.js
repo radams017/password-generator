@@ -1,6 +1,4 @@
-// try and only reference local scope variables in JS
-// Assignment Code
-
+// generates password string
 function generatePassword(length, useUpper, useLower, useNum, useChar) {
   var upperChar = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
   var lowerChar = 'abcdefghijklmnopqrstuvwxyz';
@@ -15,45 +13,54 @@ function generatePassword(length, useUpper, useLower, useNum, useChar) {
     }
     return result;
   };
-  // verifies what password parameters should be used
   if (useUpper){
     charPool += upperChar;
   }
-  else if (useLower){
+  if (useLower){
     charPool += lowerChar;
   }
-  else if (useNum){
+  if (useNum){
     charPool += numbers;
   }
-  else if (useChar){
+  if (useChar){
     charPool += specialChar;
   };
   return generate(length, charPool);
-}
+};
 
 // determines password length based on prompt input
 function getPassLength () {
-  var passLen = prompt('Choose a Password Length Between 8 and 128');
+  var passLen = prompt('Choose a Password Length Between 8 and 128 characters.');
     if (passLen === null) {
+      alert("Goodbye.")
         return;
     }
-    else if (passLen >= 128){
-      alert('Selection is Longer than 128 characters');
-      return;
+    else if (parseInt(passLen) >= 128){
+      alert('Selection is longer than 128 characters. We have set your length to 128. ');
+      return 128;
     }
-    else if (passLen <= 8){
-      alert('Selection is Shorter than 8 Characters ');
-      return;
+    else if (parseInt(passLen) <= 8){
+      alert('Selection is shorter than 8 characters. We have set your length to 8.');
+      return 8;
     }
     return passLen;
   }
 
-// multiple 'get' functions to get the case and characters -- write below in the writePassword function
-
 // Write password to the #password input
 function writePassword() {
-  var passLen = getPassLength ();
-  var password = generatePassword(passLen);
+  var passLen = getPassLength();
+  if (!passLen) {
+    return;
+  }
+  var useUpper = confirm('Would you like uppercase letters?');
+  var useLower = confirm('Would you like lowercase letters?');
+  var useNum = confirm('Would you like numbers?');
+  var useChar = confirm('Would you like to use special characters?');
+  if (!useUpper && !useLower && !useNum && !useChar){
+    alert('Invalid selection: No parameters chosen. Please try again.');
+    return;
+  }
+  var password = generatePassword(passLen, useUpper, useLower, useNum, useChar);
   var passwordText = document.querySelector("#password");
   passwordText.value = password;
 }
@@ -62,3 +69,4 @@ function writePassword() {
 var generateBtn = document.querySelector("#generate");
 
 generateBtn.addEventListener("click", writePassword);
+
