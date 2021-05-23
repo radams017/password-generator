@@ -30,17 +30,17 @@ function generatePassword(length, useUpper, useLower, useNum, useChar) {
 
 // determines password length based on prompt input
 function getPassLength () {
-  var passLen = prompt('Choose a Password Length Between 8 and 128 characters.');
+  var passLen = prompt('Choose a password length between 8 and 128 characters.');
     if (passLen === null) {
       alert("Goodbye.")
         return;
     }
     else if (parseInt(passLen) >= 128){
-      alert('Selection is longer than 128 characters. We have set your length to 128. ');
+      alert('Selection is longer than 128 characters. We have set your password length to 128. ');
       return 128;
     }
     else if (parseInt(passLen) <= 8){
-      alert('Selection is shorter than 8 characters. We have set your length to 8.');
+      alert('Selection is shorter than 8 characters. We have set your password length to 8.');
       return 8;
     }
     return passLen;
@@ -52,10 +52,10 @@ function writePassword() {
   if (!passLen) {
     return;
   }
-  var useUpper = confirm('Would you like uppercase letters?');
-  var useLower = confirm('Would you like lowercase letters?');
-  var useNum = confirm('Would you like numbers?');
-  var useChar = confirm('Would you like to use special characters?');
+  var useUpper = confirm('Would you like to add uppercase letters?');
+  var useLower = confirm('Would you like to add lowercase letters?');
+  var useNum = confirm('Would you like to add numbers?');
+  var useChar = confirm('Would you like to add special characters?');
   if (!useUpper && !useLower && !useNum && !useChar){
     alert('Invalid selection: No parameters chosen. Please try again.');
     return;
